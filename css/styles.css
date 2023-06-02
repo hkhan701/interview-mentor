@@ -1,0 +1,34 @@
+:root {
+    
+    --color-background: #49c5b6;
+
+    /* FONT */
+    --font-family-default: 'HankenGrotesk', sans-serif;
+
+    --fw-regular: 400;
+    --fw-bold: 500;
+    --fw-black: 800;
+
+    --fs-400: 1.3rem;
+    --fs-500: 1.8rem;
+    --fs-600: 2rem;
+    --fs-700: 2.4rem;
+    --fs-800: 3.2rem;
+    --fs-900: 6rem;
+}
+
+
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: var(--font-family-default);
+    font-weight: var(--fw-bold);
+    font-size: var(--fs-800);
+    background-color: var(--color-background);
+}
