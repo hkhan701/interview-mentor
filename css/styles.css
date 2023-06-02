@@ -33,51 +33,43 @@
     font: inherit;
 }
 
-body {
-    
+body { 
     font-family: var(--font-family-default);
     font-weight: var(--fw-bold);
     font-size: var(--fs-500);
     background-color: var(--color-background);
+    overflow-x: hidden;
 }
 
+/* NAVBAR */
 
-
-
-
-
-
-/* START BUTTON */
-
-.button {
+nav {
+    font-family: var(--font-family-title);
+    font-weight: var(--fw-bold);
+    font-size: var(--fs-400);
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+    max-height: 8rem;
 }
 
-.start-button {
-  background-color: var(--color-text);
-  border: 2px solid var(--color-black);
-  font-size: var(--fs-400);
-  border-radius: 3rem;
-  box-shadow: var(--color-black) 4px 4px 0 0;
-  color: var(--color-black);
-  cursor: pointer;
-  display: inline-block;
-  padding: 0.8rem 1rem;
-  text-align: center;
-  text-decoration: none;
-  user-select: none;
-  -webkit-user-select: none;
-  touch-action: manipulation;
+nav img {
+    max-width: 100%;
+    max-height: 7rem;
 }
 
-.start-button:hover {
-  background-color: var(--color-secondary);
+.about-button {
+    color: var(--color-text);
+    text-decoration: none;
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;   
+    transition: all 0.4s ease-in-out;
 }
 
-.start-button:active {
-  box-shadow: var(--color-black) 2px 2px 0 0;
-  transform: translate(2px, 2px);
+.about-button:hover {
+    background-color: #16252a9a;
+    transition: all 0.4s ease-in-out;
 }
 
 /* TITLE */
@@ -108,7 +100,6 @@ body {
     margin-bottom: 2rem;
 }
 
-
 @media screen and (max-width: 768px) {
     .title {
         font-size: var(--fs-700);
@@ -119,34 +110,123 @@ body {
     }
 }
 
-/* NAVBAR */
+/* START BUTTON */
 
-nav {
-    font-family: var(--font-family-title);
-    font-weight: var(--fw-bold);
-    font-size: var(--fs-400);
+.button {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
+    padding: 1rem 0;
+}
+
+.start-button {
+  background-color: var(--color-text);
+  border: 2px solid var(--color-black);
+  font-size: var(--fs-400);
+  border-radius: 3rem;
+  box-shadow: var(--color-black) 4px 4px 0 0;
+  color: var(--color-black);
+  cursor: pointer;
+  display: inline-block;
+  padding: 0.8rem 1rem;
+  text-align: center;
+  text-decoration: none;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+}
+
+.start-button:hover {
+  background-color: var(--color-secondary);
+}
+
+.start-button:active {
+  box-shadow: var(--color-black) 2px 2px 0 0;
+  transform: translate(2px, 2px);
+}
+
+/* ABOUT SECTION */
+
+.about {
+    display: flex;
+    justify-content: center;
     align-items: center;
-    padding: 1rem 2rem;
-    /* background-color: var(--color-secondary); */
-    max-height: 8rem;
+    flex-direction: column;
+    padding: 4rem 0;
+    text-align: center;
+
+    & span{
+        color: var(--color-black);
+    }
 }
 
-nav img {
-    max-width: 100%;
-    max-height: 7rem;
-}
-
-.about-button {
+.about h3 {
+    font-size: var(--fs-700);
     color: var(--color-text);
-    text-decoration: none;
-    padding: 0.5rem 1rem;
-    border-radius: 0.5rem;   
-    transition: all 0.4s ease-in-out;
+    max-width: 50rem;
+    
 }
 
-.about-button:hover {
-    background-color: #16252a9a;
-    transition: all 0.4s ease-in-out;
+.about p {
+    font-size: var(--fs-400);
+    color: var(--color-text);
+    max-width: 50rem;
 }
+
+.about-1, .about-2 {
+    display: flex;
+    justify-content: center;
+    align-items: top;
+    flex-direction: row;
+    gap: 5rem;
+    margin: 0 10rem;
+}
+
+.divider {
+    border-bottom: 4px dotted var(--color-black);
+    max-width: 100rem;
+    width: 80%;
+    margin: 5rem 15rem;
+}
+
+@media screen and (max-width: 768px) {
+    .about-1, .about-2 {
+        flex-direction: column;
+        margin: 0 3rem;
+        gap: 3rem;
+    }
+}
+
+/* FOOTER */
+
+footer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 6rem;
+    width: 100%;
+
+    & img {
+        max-height: 2rem;
+    }
+}
+
+
+
+/* SCROLL BAR */
+
+/* width */
+::-webkit-scrollbar {
+    width: 0.4rem;
+  }
+  
+  /* Track */
+  ::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 5px grey;
+    border-radius: 10px;
+  }
+  
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: var(--color-black);
+    border-radius: 10px;
+  }
