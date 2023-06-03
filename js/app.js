@@ -18,6 +18,8 @@ const pulseAnimation = () => {
 
 pulseAnimation();
 
+aiResponse.value = 'Hello, I am your personal assistant. How can I help you?';
+
 
 btnArea.addEventListener('click', () => {
     const utterance = new SpeechSynthesisUtterance(aiResponse.value);
