@@ -75,10 +75,16 @@ nav img {
 .nav-button {
     color: var(--color-text);
     text-decoration: none;
-    text-align: end;
+    text-align: center;
     padding: 0.5rem 1rem;
     border-radius: 0.5rem;   
     transition: all 0.3s ease-in-out;
+}
+
+@media screen and (max-width: 367px) {
+    .nav-button {
+        width: 5rem;
+    }
 }
 
 .nav-button:hover {
