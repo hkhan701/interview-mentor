@@ -10,12 +10,15 @@
     /* FONT */
     --font-family-default: 'Hanken Grotesk', sans-serif;
     --font-family-title: 'Inter', sans-serif;
+    --font-family-ai: 'Roboto Mono', monospace;
 
+    --fw-thin: 300;
     --fw-regular: 400;
     --fw-bold: 600;
     --fw-black: 800;
 
-    --fs-400: 1.3rem;
+    --fs-300: 1rem;
+    --fs-400: 1.1rem;
     --fs-500: 1.8rem;
     --fs-600: 2rem;
     --fs-700: 2.4rem;
@@ -41,6 +44,16 @@ body {
     overflow-x: hidden;
 }
 
+input,
+textarea,
+button,
+select,
+a {
+    -webkit-tap-highlight-color: transparent;
+}
+
+  /*!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! HOME PAGE !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
+
 /* NAVBAR */
 
 nav {
@@ -59,23 +72,24 @@ nav img {
     max-height: 7rem;
 }
 
-.about-button {
+.nav-button {
     color: var(--color-text);
     text-decoration: none;
     padding: 0.5rem 1rem;
     border-radius: 0.5rem;   
-    transition: all 0.4s ease-in-out;
+    transition: all 0.3s ease-in-out;
 }
 
-.about-button:hover {
+.nav-button:hover {
     background-color: #16252a9a;
-    transition: all 0.4s ease-in-out;
+    transition: all 0.3s ease-in-out;
 }
 
 /* TITLE */
 
 .title {
     font-family: var(--font-family-title);
+    /* text-decoration: none; */
     font-weight: var(--fw-black);
     font-size: var(--fs-900);
     color: var(--color-text);
@@ -167,7 +181,9 @@ nav img {
 }
 
 .about p {
+    font-family: var(--font-family-ai);
     font-size: var(--fs-400);
+    font-weight: var(--fw-regular);
     color: var(--color-text);
     max-width: 50rem;
 }
@@ -188,7 +204,7 @@ nav img {
     margin: 5rem 15rem;
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 960px) {
     .about-1, .about-2 {
         flex-direction: column;
         margin: 0 3rem;
@@ -210,8 +226,6 @@ footer {
     }
 }
 
-
-
 /* SCROLL BAR */
 
 /* width */
@@ -230,3 +244,43 @@ footer {
     background: var(--color-black);
     border-radius: 10px;
   }
+
+
+  /*!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! INTERVIEW PAGE !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
+
+
+/* NAVBAR */
+
+.navtitle {
+
+    font-size: var(--fs-500);
+    
+    & a {
+        color: var(--color-text);
+        text-decoration: none;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .navtitle {
+        font-size: var(--fs-400);
+    }
+}
+
+/* AI SECTION */
+
+.ai-section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding: 2rem 0;
+
+    & img {
+        max-width: 100%;
+        max-height: 7rem;
+    }
+}
+    
+
+
