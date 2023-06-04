@@ -6,6 +6,7 @@
     --color-white: #f0f0f0;
     --color-gray: #9C9C9C;
     --color-black: #16252a;
+    --color-button: #96ece2;
 
     /* FONT */
     --font-family-default: 'Hanken Grotesk', sans-serif;
@@ -139,7 +140,7 @@ nav img {
     padding: 1rem 0;
 }
 
-.start-button {
+.button-style {
   background-color: var(--color-text);
   border: 2px solid var(--color-black);
   font-size: var(--fs-400);
@@ -156,11 +157,11 @@ nav img {
   touch-action: manipulation;
 }
 
-.start-button:hover {
-  background-color: var(--color-secondary);
+.button-style:hover {
+  background-color: var(--color-button);
 }
 
-.start-button:active {
+.button-style:active {
   box-shadow: var(--color-black) 2px 2px 0 0;
   transform: translate(2px, 2px);
 }
@@ -325,19 +326,6 @@ footer {
     text-align: center;
 }
 
-#btn {
-    background-color: var(--color-text);
-    border: 2px solid var(--color-black);
-    font-size: var(--fs-400);
-    border-radius: 3rem;
-    box-shadow: var(--color-black) 4px 4px 0 0;
-    color: var(--color-black);
-    cursor: pointer;
-    display: inline-block;
-    padding: 0.8rem 1rem;
-    touch-action: manipulation;
-}
-
        /* PULSE ANIMATION */
 
 .pulse {
@@ -345,7 +333,7 @@ footer {
     animation: pulse 2s infinite;
     width: 1rem;
     height: 1rem;
-    background: var(--color-secondary);
+    background-color: var(--color-secondary);
     border-radius: 50%;
 }
 
@@ -356,6 +344,11 @@ footer {
     background: inherit;
     border-radius: inherit;
     opacity: 0.8;
+}
+
+.pulse-mute {
+    animation: none;
+    background-color: var(--color-black);
 }
 
 .pulse-active {
