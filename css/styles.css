@@ -306,28 +306,46 @@ footer {
     background: radial-gradient(var(--color-black), var(--color-background) 35%);;
 }
 
-#response {
+.ai-response {
     resize: none;
     width: 100%;
     height: 100%;
+    margin: 0rem auto;
+    /* margin-bottom: 2rem; */
     font-family: var(--font-family-ai);
     font-size: var(--fs-300);
     color: var(--color-black);
     border-radius: 10px;
     padding: 1rem;
+    padding-bottom: 2rem;
     background-color: var(--color-secondary);
     box-shadow: rgba(6, 24, 44, 0.4) 0px 0px 0px 2px, rgba(6, 24, 44, 0.65) 0px 4px 6px -1px, rgba(255, 255, 255, 0.08) 0px 1px 0px inset;
 }
 
-.ai-text {
-    width: 60vw;
-    height: 15rem;
-    margin: 0 auto;
-    margin-bottom: 5rem;
-    text-align: center;
+.ai-response:focus {
+    outline: none;
 }
 
-       /* PULSE ANIMATION */
+.ai-text {
+    width: 30rem;
+    height: 15rem;
+    margin: 0 auto;
+    text-align: center;
+    position: relative;
+}
+
+.speaker {
+    position: absolute;
+    bottom: 0.4rem;
+    right: 0.7rem;
+    width: 2.8rem;
+    height: 1.7rem;
+    font-size: var(--fs-200);
+    text-align: center;
+    padding: 0;
+}
+
+    /* PULSE ANIMATION */
 
 .pulse {
     position: relative;
@@ -364,17 +382,22 @@ footer {
     }
 }
 
+.begin-interview {
+    margin-top: 0.5rem;
+}
+
 
 /* QUESTIONS */
 
-.questions {
+.question-form {
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    width: 60vw;
-    margin: 0 auto;
-    margin-bottom: 6rem;
+    max-width: 40rem;
+    margin: 6rem auto;
+    /* margin-top: 6rem;
+    margin-bottom: 6rem; */
     gap: 2rem;
 }
 
@@ -388,8 +411,17 @@ footer {
     border-radius: 10px;
     padding: 1rem;
     background-color: var(--color-text);
-    box-shadow: rgba(6, 24, 44, 0.4) 0px 0px 0px 2px, rgba(6, 24, 44, 0.65) 0px 4px 6px -1px, rgba(255, 255, 255, 0.08) 0px 1px 0px ins
+    box-shadow: rgba(0, 0, 0, 0.2) 0px 20px 30px;
+}
 
+@media screen and (max-width: 768px) {
+    .question-form {
+        width: 80vw;
+    }
+
+    .ai-text {
+        width: 70vw;
+    }
 }
 
     

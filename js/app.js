@@ -25,26 +25,53 @@ function typeText(element, text) {
     
         let interval = setInterval(() => {
           if (index < text.length) {
-            pulseAnimationOn();
+            pulseAnimationOn(); // Indicate that the AI is speaking
             element.innerHTML += text.charAt(index);
             index++;
+            element.scrollTop = element.scrollHeight; // Scroll to bottom of textarea automatically
           } else {
             pulseAnimationOff();
             clearInterval(interval);
-            setTimeout(resolve, 2000);
+            setTimeout(resolve, 2000); // Wait 2 seconds before resolving
           }
     
     }, 50);
     });
 }
 
+// Form validation makes sure at least one question is filled out before beginning the interview
+
+function validateForm() {
+    const form = document.querySelector('.question-form');
+    const inputs = form.querySelectorAll('.questions-area');
+    const beginInterviewButton = document.querySelector('.begin-interview');
+
+    beginInterviewButton.addEventListener('click', (event) => {
+    let isFilled = false;
+
+    inputs.forEach((input) => {
+            if (input.value.trim() !== '') {
+            isFilled = true;
+            }
+        });
+
+        if (!isFilled) {
+            event.preventDefault();
+            alert('Please fill at least one question before beginning the interview.');
+        }
+    });
+}
+
+
+
 const startUp =  async () => {
-    const aiResponse = document.getElementById('response'); 
+    const aiResponse = document.querySelector('.ai-response'); 
     await typeText(aiResponse, "Hello, welcome to InterviewMentor. Please enter the questions you would like to practice! You may add up to 5 questions below.");
     await typeText(aiResponse, "When you are ready to begin, click the begin interview button.");
 }
 
 startUp();
+validateForm();
 
 const beginInterview = document.querySelector('.begin-interview');
 
