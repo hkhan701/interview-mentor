@@ -78,6 +78,8 @@ function validateForm() {
         if (!isFilled) {
             event.preventDefault();
             alert('Please fill at least one question before beginning the interview.');
+        } else {
+            beginInterview();   
         }
     });
 }
@@ -86,16 +88,29 @@ function validateForm() {
 
 const startUp =  async () => {
     const aiResponse = document.querySelector('.ai-response'); 
-    await typeText(aiResponse, "Hello, welcome to InterviewMentor. Please enter the questions you would like to practice! You may add up to 5 questions below.");
-    await typeText(aiResponse, "When you are ready to begin, click the begin interview button.");
-    await typeText(aiResponse, "You suck.");
+    await typeText(aiResponse, "Hello, welcome to InterviewMentor. Please enter the questions you would like to practice! \nYou may add up to 5 questions below. When you are ready to begin, click the begin interview button.");
 }
 
 startUp();
 validateForm();
 
-const beginInterview = document.querySelector('.begin-interview');
 
-beginInterview.addEventListener('click', () => {
-    
-});
+// Begin interview button functionality
+function beginInterview() {
+
+
+    //grab the data from the form
+    const form = document.querySelector('.question-form');
+    const inputs = form.querySelectorAll('.questions-area');
+    const questions = [];
+
+    inputs.forEach((input) => {
+        if (input.value.trim() !== '') {
+            questions.push(input.value);
+        }
+    });
+
+    // Now questions is an array of the questions the user wants to practice
+    alert("You will be asked " + questions);
+
+}
