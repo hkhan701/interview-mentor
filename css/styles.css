@@ -311,7 +311,6 @@ footer {
     width: 100%;
     height: 100%;
     margin: 0rem auto;
-    /* margin-bottom: 2rem; */
     font-family: var(--font-family-ai);
     font-size: var(--fs-300);
     color: var(--color-black);
