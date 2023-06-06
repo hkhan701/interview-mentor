@@ -93,22 +93,50 @@ const startUp =  async () => {
 startUp();
 validateForm();
 
-
+const questions = [];
 // Begin interview button functionality
 function beginInterview() {
-    
+
     //grab the data from the form
     const form = document.querySelector('.question-form');
     const inputs = form.querySelectorAll('.questions-area');
-    const questions = [];
-
+    const beginInterviewButton = document.querySelector('.begin-interview');
+    const textToSpeechArea = document.querySelector('.text-to-speech');
+    const aiResponse = document.querySelector('.ai-response');
+    const speechText = document.querySelector('.text-to-speech-area');
+    
     inputs.forEach((input) => {
         if (input.value.trim() !== '') {
             questions.push(input.value);
         }
     });
 
-    // Now questions is an array of the questions the user wants to practice
-    alert("You will be asked " + questions);
+    //hide the form
+    form.classList.add('hide');
+    textToSpeechArea.classList.remove('hide');
+    beginInterviewButton.classList.add('hide');
+
+    //display the first question
+    typeText(aiResponse, questions[0]);
+
+    var speech = true;
+    window.SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+    const recognition = new SpeechRecognition();
+    recognition.interimResults = true;
+
+    recognition.addEventListener('result', e => {
+        const transcript = Array.from(e.results)
+        .map(result => result[0])
+        .map(result => result.transcript);
+        speechText.value = transcript;
+    })           
+
+    if(speech){
+        recognition.start();
+    }
+
+
+    console.log(questions);
+
 
 }
