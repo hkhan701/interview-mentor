@@ -54,7 +54,6 @@ function typeText(element, text) {
             clearInterval(interval);
             setTimeout(resolve, 2000); // Wait 2 seconds before resolving
           }
-    
     }, 50);
     });
 }
@@ -67,9 +66,9 @@ function validateForm() {
     const beginInterviewButton = document.querySelector('.begin-interview');
 
     beginInterviewButton.addEventListener('click', (event) => {
-    let isFilled = false;
+        let isFilled = false;
 
-    inputs.forEach((input) => {
+        inputs.forEach((input) => {
             if (input.value.trim() !== '') {
             isFilled = true;
             }
@@ -97,8 +96,7 @@ validateForm();
 
 // Begin interview button functionality
 function beginInterview() {
-
-
+    
     //grab the data from the form
     const form = document.querySelector('.question-form');
     const inputs = form.querySelectorAll('.questions-area');
