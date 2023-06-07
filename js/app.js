@@ -124,12 +124,14 @@ async function beginInterview() {
     var currentQuestionIndex = 0;
     console.log(interviewQuestions.length);
     while (currentQuestionIndex < interviewQuestions.length) {
-        displayNextQuestion(currentQuestionIndex);
+        await displayNextQuestion(currentQuestionIndex);
         var currentAnswer = await listenForUserResponse();
         interviewAnswers[currentQuestionIndex] = currentAnswer;
         currentQuestionIndex++;
     }
 
+    // alert("Your answers" + interviewAnswers);
+    await typeText("Thank you for using InterviewMentor. Your answers suck.");
     console.log(interviewAnswers);
 }
 
@@ -161,25 +163,24 @@ async function listenForUserResponse() {
 
         // Once the user clicks the submit button, stop listening and turn off the box shadow animation
         sumbitBtn.addEventListener('click', () => { 
-           
             recognition.stop();
             boxShadowAnimationOff();
-            let output = transcript.join(''); // Convert the transcript array into a string
-            speechText.value = ""; // Clear the textarea
+            let output = speechText.value;
+            speechText.value = "";
             resolve(output);
         });
       });
 }
 
 async function displayNextQuestion(currentQuestionIndex) {
-    typeText(interviewQuestions[currentQuestionIndex]);
+    await typeText(interviewQuestions[currentQuestionIndex]);
 }
 
 
 
 
 const startUp =  async () => {
-    await typeText("Hello, welcome to InterviewMentor. "); // Please enter the questions you would like to practice! \nYou may add up to 5 questions below. When you are ready to begin, click the begin interview button.");
+    await typeText("Hello, welcome to InterviewMentor."); // Please enter the questions you would like to practice! \nYou may add up to 5 questions below. When you are ready to begin, click the begin interview button.");
 
     
 }

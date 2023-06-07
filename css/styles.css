@@ -175,10 +175,10 @@ nav img {
     flex-direction: column;
     padding: 4rem 0;
     text-align: center;
+}
 
-    & span{
-        color: var(--color-black);
-    }
+.about span {
+    color: var(--color-black);
 }
 
 .about h3 {
@@ -238,9 +238,9 @@ footer img {
 /* SCROLL BAR */
 
 /* width */
-::-webkit-scrollbar {
-    width: 0.4rem;
-  }
+    ::-webkit-scrollbar {
+        width: 0.4rem;
+    }
   
   /* Track */
   ::-webkit-scrollbar-track {
@@ -261,13 +261,12 @@ footer img {
 /* NAVBAR */
 
 .navtitle {
-
     font-size: var(--fs-500);
-    
-    & a {
-        color: var(--color-text);
-        text-decoration: none;
-    }
+}
+
+.navtitle a{
+    color: var(--color-text);
+    text-decoration: none;
 }
 
 @media screen and (max-width: 768px) {
@@ -283,17 +282,17 @@ footer img {
     justify-content: center;
     align-items: center;
     flex-direction: column;
+}
 
-    & span {
-        display: flex;
-        align-items: center;
-        flex-direction: row;
-    }
+.ai-section span {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+}
 
-    & img {
-        max-width: 100%;
-        max-height: 7rem;
-    }
+.ai-section img {
+    max-width: 100%;
+    max-height: 7rem;
 }
 
 .visual-audio {
