@@ -422,9 +422,9 @@ footer img {
         width: 70vw;
     }
 
-    /* .text-to-speech {
-        width: 70vw;
-    } */
+    .text-to-speech {
+        max-width: 70vw;
+    }
 }
 
 .hide {
@@ -441,6 +441,7 @@ footer img {
     width: 30rem;
     height: 15rem;
     margin: 6rem auto;
+    position: relative;
 }
 
 .text-to-speech-area{
@@ -453,8 +454,29 @@ footer img {
     color: var(--color-black);
     border-radius: 10px;
     padding: 1rem;
+    padding-bottom: 2rem;
     background-color: var(--color-text);
-    box-shadow: rgba(0, 0, 0, 0.2) 0px 20px 30px;
+}
+
+.sumbit-ans-btn {
+    position: absolute;
+    bottom: 0.4rem;
+    right: 0.7rem;
+    width: 3.4rem;
+    height: 1.7rem;
+    font-size: var(--fs-200);
+    text-align: center;
+    padding: 0;
+}
+
+.box-shadow {
+    animation: boxShadowAnimate 0.35s ease-in-out infinite alternate;
+}
+
+@keyframes boxShadowAnimate {
+    100% {
+        box-shadow: rgba(14, 30, 37) 0px 2px 4px 0px, rgb(14, 30, 37) 0px 2px 16px 0px;
+    }
 }
     
 
