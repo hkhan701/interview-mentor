@@ -37,6 +37,19 @@ const textToSpeech = (text) => {
     window.speechSynthesis.speak(new SpeechSynthesisUtterance(text)); 
 }
 
+let loadInterval;
+function loader() {
+    aiResponse = document.querySelector('.ai-response');
+    aiResponse.innerHTML = "Loading";
+
+    loadInterval = setInterval(() => {
+        aiResponse.innerHTML += ".";
+        if (aiResponse.innerHTML === "Loading....") {
+            aiResponse.innerHTML = "Loading";
+        }
+    }, 500);
+}
+
 // Speaker button functionality
 function speakerFunctionality() {
     const speaker = document.querySelector('.speaker');
@@ -114,24 +127,25 @@ async function beginInterview() {
         }
     });
 
-    interviewAnswers = [interviewQuestions.length];
-
     //hide the form
     form.classList.add('hide');
     textToSpeechArea.classList.remove('hide');
     beginInterviewButton.classList.add('hide');
 
     var currentQuestionIndex = 0;
+    interviewAnswers = [interviewQuestions.length];
+
+
     console.log(interviewQuestions.length);
     while (currentQuestionIndex < interviewQuestions.length) {
         await displayNextQuestion(currentQuestionIndex);
-        var currentAnswer = await listenForUserResponse();
-        interviewAnswers[currentQuestionIndex] = currentAnswer;
+        let answer = await listenForUserResponse(currentQuestionIndex);
+        console.log(currentQuestionIndex + ": " + answer);
+        interviewAnswers[currentQuestionIndex] = answer;
         currentQuestionIndex++;
     }
 
-    // alert("Your answers" + interviewAnswers);
-    await typeText("Thank you for using InterviewMentor. Your answers suck.");
+    await typeText("Thank you for using InterviewMentor. Your answers suck. Please get better.");
     console.log(interviewAnswers);
 }
 
@@ -139,10 +153,11 @@ async function beginInterview() {
 
 // This function listens for the user's response and auto updates the textarea
 // It returns the user's response as a string
-async function listenForUserResponse() {
+async function listenForUserResponse(currentQuestionIndex) {
     return new Promise((resolve, reject) => {
 
         const speechText = document.querySelector('.text-to-speech-area');
+        speechText.value = "";
         const sumbitBtn = document.querySelector('.sumbit-ans-btn');
 
         var SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
@@ -166,7 +181,6 @@ async function listenForUserResponse() {
             recognition.stop();
             boxShadowAnimationOff();
             let output = speechText.value;
-            speechText.value = "";
             resolve(output);
         });
       });
@@ -181,8 +195,7 @@ async function displayNextQuestion(currentQuestionIndex) {
 
 const startUp =  async () => {
     await typeText("Hello, welcome to InterviewMentor."); // Please enter the questions you would like to practice! \nYou may add up to 5 questions below. When you are ready to begin, click the begin interview button.");
-
-    
+    await loader();  
 }
 
 startUp();
