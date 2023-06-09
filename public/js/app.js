@@ -1,3 +1,57 @@
+testbtn = document.querySelector('.pulse');
+
+function getResponse() {
+
+    testbtn.addEventListener('click', async (e) => {
+
+        console.log("test");
+        e.preventDefault();
+        const mytext = "Hi, how are you?";
+
+        if (mytext) {
+            try {
+                const response = await fetch('https://api.openai.com/v1/chat/completions', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${OPENAI_API_KEY}`,
+                    },
+                    body: JSON.stringify({
+                        model: 'gpt-3.5-turbo',
+                        messages: [{ role: 'user', content: mytext }],
+                        temperature: 1.0,
+                        top_p: 0.7,
+                        n: 1,
+                        stream: false,
+                        presence_penalty: 0,
+                        frequency_penalty: 0,
+                    }),
+                });
+
+                if (response.ok) {
+                    const data = await response.json();
+                    console.log(data.choices[0].message.content);
+                } else {
+                    console.log('Error: Unable to process your request.');
+                }
+            } catch (error) {
+                console.error(error);
+                console.log('Error: Unable to process your request.');
+            }
+        }
+    });
+
+}
+
+getResponse();
+
+
+
+
+
+
+
+
 // Pulse animation functions
 
 const pulseAnimationOn = () => {
@@ -195,7 +249,7 @@ async function displayNextQuestion(currentQuestionIndex) {
 
 const startUp =  async () => {
     await typeText("Hello, welcome to InterviewMentor."); // Please enter the questions you would like to practice! \nYou may add up to 5 questions below. When you are ready to begin, click the begin interview button.");
-    await loader();  
+    // await loader();  
 }
 
 startUp();
