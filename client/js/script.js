@@ -1,3 +1,36 @@
+
+const aiResponse = document.querySelector('.ai-response');
+const testbtn = document.querySelector('.pulse');
+
+testbtn.addEventListener('click', async () => {
+
+    const response = await fetch('http://localhost:5000', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            prompt: "How are you doing?"
+        })
+    })
+
+    if(response.ok){
+        const data = await response.json();
+        constParsedData = data.bot.trim();
+        console.log(parsedData);
+        // await typeText(parsedData);
+    } else {
+        const err = await response.text();
+        aiResponse.textValue = "Something went wrong";
+    }
+});
+
+
+
+
+
+
+
 // Pulse animation functions
 
 const pulseAnimationOn = () => {
