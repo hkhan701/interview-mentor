@@ -1,86 +1,3 @@
-testbtn = document.querySelector('.pulse');
-
-
-import { Configuration, OpenAIApi } from "openai";
-
-const configuration = new Configuration({
-    apiKey: '',
-});
-
-const openai = new OpenAIApi(configuration);
-
-const runPrompt = async () => {
-    const prompt = `Tell me a joke about a cat eating pasta`;
-
-    const response = await openai.createCompletion({
-        model: "gpt-3.5-turbo",
-        prompt: prompt,
-        maxTokens: 2048,
-        temperature: 0.7,
-    });
-
-    console.log(response.data.choices[0].text);
-};
-
-testbtn.addEventListener('click', async (e) => {
-    console.log("test");
-    runPrompt();
-});
-
-
-
-// function getResponse() {
-
-//     testbtn.addEventListener('click', async (e) => {
-
-//         console.log("test");
-//         e.preventDefault();
-//         const mytext = "Hi, how are you?";
-
-//         if (mytext) {
-//             try {
-//                 const response = await fetch('https://api.openai.com/v1/chat/completions', {
-//                     method: 'POST',
-//                     headers: {
-//                         'Content-Type': 'application/json',
-//                         'Authorization': `Bearer $process.env.OPENAI_API_KEY`,
-//                     },
-//                     body: JSON.stringify({
-//                         model: 'gpt-3.5-turbo',
-//                         messages: [{ role: 'user', content: mytext }],
-//                         temperature: 1.0,
-//                         top_p: 0.7,
-//                         n: 1,
-//                         stream: false,
-//                         presence_penalty: 0,
-//                         frequency_penalty: 0,
-//                     }),
-//                 });
-
-//                 if (response.ok) {
-//                     const data = await response.json();
-//                     console.log(data.choices[0].message.content);
-//                 } else {
-//                     console.log('Error: Unable to process your request.');
-//                 }
-//             } catch (error) {
-//                 console.error(error);
-//                 console.log('Error: Unable to process your request.');
-//             }
-//         }
-//     });
-
-// }
-
-// getResponse();
-
-
-
-
-
-
-
-
 // Pulse animation functions
 
 const pulseAnimationOn = () => {
@@ -284,7 +201,6 @@ const startUp =  async () => {
 startUp();
 validateForm();
 
-
 /*
     while(there are still questions){
         display the first question
@@ -294,8 +210,4 @@ validateForm();
     }
     
     display the next question
-
-
-
-
 */ 
