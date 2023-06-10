@@ -4,6 +4,7 @@ const testbtn = document.querySelector('.pulse');
 
 testbtn.addEventListener('click', async () => {
 
+    console.log("Button clicked");
     const response = await fetch('https://interviewmentor.onrender.com/', {
         method: 'POST',
         headers: {
