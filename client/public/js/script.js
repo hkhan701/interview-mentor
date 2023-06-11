@@ -1,32 +1,4 @@
-
-// Based on the interview question: "testquestion", give feedback on the following answer
-// and give a score out of 10: "testanswer"
-
 const aiResponse = document.querySelector('.ai-response');
-
-async function getAIFeedback(question, answer) {
-
-    const response = await fetch('http://localhost:5000', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-            prompt: `Based on the interview question: ${question}, give feedback on the following answer and a rating out of 10: ${answer}`
-        })
-    })
-
-    if(response.ok){
-        const data = await response.json();
-        const parsedData = data.bot.trim();
-        return parsedData;
-    } else {
-        const err = await response.text();
-        console.log(err);
-        aiResponse.textValue = "Something went wrong";
-    }
-
-}
 
 // Pulse animation functions
 const pulseAnimation = document.querySelector('.pulse').querySelectorAll('span');
@@ -58,26 +30,13 @@ const textToSpeech = (text) => {
     window.speechSynthesis.speak(new SpeechSynthesisUtterance(text)); 
 }
 
-// let loadInterval;
-// function loader() {
-//     aiResponse.innerHTML = "Loading";
-
-//     loadInterval = setInterval(() => {
-//         aiResponse.innerHTML += ".";
-//         if (aiResponse.innerHTML === "Loading....") {
-//             aiResponse.innerHTML = "Loading";
-//         }
-//     }, 500);
-// }
-
 // Speaker button functionality
 function speakerFunctionality() {
     const speaker = document.querySelector('.speaker');
-
     speaker.addEventListener('click', () => {
         const text = aiResponse.textContent;
         textToSpeech(text);
-}
+    }
 )};
 
 // Typewriter effect function
@@ -103,7 +62,6 @@ async function typeText(text) {
 }
 
 // Form validation makes sure at least one question is filled out before beginning the interview
-
 function validateForm() {
     const form = document.querySelector('.question-form');
     const inputs = form.querySelectorAll('.questions-area');
@@ -127,8 +85,32 @@ function validateForm() {
     });
 }
 
-const interviewQuestions = [];
-var interviewAnswers;
+// Accepts a question and answer and returns the AI's feedback
+async function getAIFeedback(question, answer) {
+
+    const response = await fetch('http://localhost:5000', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            prompt: `Based on the interview question: ${question}, give feedback on the following answer and a rating out of 10: ${answer}`
+        })
+    })
+
+    if(response.ok){
+        const data = await response.json();
+        const parsedData = data.bot.trim();
+        return parsedData;
+    } else {
+        const err = await response.text();
+        console.log(err);
+        aiResponse.textValue = "Something went wrong";
+    }
+}
+
+let interviewQuestions = [];
+let interviewAnswers;
 
 // Begin interview button functionality
 async function beginInterview() {
@@ -170,11 +152,10 @@ async function beginInterview() {
 }
 
 
-
 // This function listens for the user's response and auto updates the textarea
 // It returns the user's response as a string
 async function listenForUserResponse() {
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve) => {
 
         const speechText = document.querySelector('.text-to-speech-area');
         speechText.value = "";
@@ -209,7 +190,6 @@ async function listenForUserResponse() {
 async function displayNextQuestion(currentQuestionIndex) {
     await typeText(interviewQuestions[currentQuestionIndex]);
 }
-
 
 const startUp =  async () => {
     await typeText("Hello, welcome to InterviewMentor. Please enter the questions you would like to practice! \nYou may add up to 5 questions below. When you are ready to begin, click the begin interview button.");
