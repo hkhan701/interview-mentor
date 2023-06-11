@@ -94,7 +94,7 @@ async function getAIFeedback(question, answer) {
             'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-            prompt: `Based on the interview question: ${question}, give feedback on the following answer and a score out of 10: ${answer}`
+            prompt: `Based on the interview question: ${question}, give feedback on the following answer and a score out of 10 (formatted as Feedback: \nScore:): ${answer}`
         })
     })
 
@@ -142,12 +142,18 @@ async function beginInterview() {
         await displayNextQuestion(currentQuestionIndex);
         let answer = await listenForUserResponse();
         let currentFeedback = await getAIFeedback(interviewQuestions[currentQuestionIndex], answer);
-        finalFeedback += "\n\nQ" + (currentQuestionIndex+1) + ". \n" +currentFeedback;
+        finalFeedback += "\n\nQ" + (currentQuestionIndex+1) + ". \n" + interviewQuestions[currentQuestionIndex] + "\n\nA" + (currentQuestionIndex+1) + ". \n" + answer + "\n\n"
+         +currentFeedback;
         console.log(currentQuestionIndex + ": " + answer);   
         interviewAnswers[currentQuestionIndex] = answer;
         currentQuestionIndex++;
     }
 
+    // Final screen to display the AI's feedback
+    const aiText = document.querySelector('.ai-text');
+    aiText.setAttribute("style", "height: 30rem");
+    textToSpeechArea.classList.add('hide');
+    
     await typeText("Thank you for using InterviewMentor. Here are your results:\n" + finalFeedback);
 }
 
