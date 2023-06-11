@@ -142,8 +142,8 @@ async function beginInterview() {
         await displayNextQuestion(currentQuestionIndex);
         let answer = await listenForUserResponse();
         let currentFeedback = await getAIFeedback(interviewQuestions[currentQuestionIndex], answer);
-        finalFeedback += "\n\nQ" + currentQuestionIndex+1 + ". \n" +currentFeedback;
-        console.log(currentQuestionIndex + ": " + answer);
+        finalFeedback += "\n\nQ" + (currentQuestionIndex+1) + ". \n" +currentFeedback;
+        console.log(currentQuestionIndex + ": " + answer);   
         interviewAnswers[currentQuestionIndex] = answer;
         currentQuestionIndex++;
     }
