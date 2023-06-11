@@ -1,6 +1,6 @@
 # interview-mentor
 
-Front-end was deployed using Vercel
+Front-end was deployed using Vercel,
 Back-end was deployed using Render (Node.js and Express)
 
 This project taught me a lot about front end development using vanilla HTML, CSS and JS. Looking back I definitely see areas of improvement
