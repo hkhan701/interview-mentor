@@ -94,7 +94,7 @@ async function getAIFeedback(question, answer) {
             'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-            prompt: `Based on the interview question: ${question}, give feedback on the following answer and a rating out of 10: ${answer}`
+            prompt: `Based on the interview question: ${question}, give feedback on the following answer and a score out of 10: ${answer}`
         })
     })
 
