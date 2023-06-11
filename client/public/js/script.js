@@ -1,69 +1,56 @@
 
+// Based on the interview question: "testquestion", give feedback on the following answer
+// and give a score out of 10: "testanswer"
+
 const aiResponse = document.querySelector('.ai-response');
-const testbtn = document.querySelector('.pulse');
 
-testbtn.addEventListener('click', async () => {
+async function getAIFeedback(question, answer) {
 
-    console.log("Button clicked");
-    const response = await fetch('https://interviewmentor.onrender.com/', {
+    const response = await fetch('http://localhost:5000', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-            prompt: "How are you doing?"
+            prompt: `Based on the interview question: ${question}, give feedback on the following answer and a rating out of 10: ${answer}`
         })
     })
 
     if(response.ok){
         const data = await response.json();
-        constParsedData = data.bot.trim();
-        console.log(parsedData);
-        // await typeText(parsedData);
+        const parsedData = data.bot.trim();
+        return parsedData;
     } else {
         const err = await response.text();
+        console.log(err);
         aiResponse.textValue = "Something went wrong";
     }
-});
 
-
-
-
-
-
+}
 
 // Pulse animation functions
+const pulseAnimation = document.querySelector('.pulse').querySelectorAll('span');
 
 const pulseAnimationOn = () => {
-    const pulse = document.querySelector('.pulse');
-    const pulseAnimation = pulse.querySelectorAll('span');
-
     pulseAnimation.forEach(span => {  
         span.classList.add('pulse-active');
     }); 
 }
 
 const pulseAnimationOff = () => {
-    const pulse = document.querySelector('.pulse');
-    const pulseAnimation = pulse.querySelectorAll('span');
-
     pulseAnimation.forEach(span => {
         span.classList.remove('pulse-active');    
     }); 
 }
 
-// function to turn on box shadow animation
-function boxShadowAnimationOn() {
-    const textToSpeechArea = document.querySelector('.text-to-speech-area');
+// box shadow animation functions
+const textToSpeechArea = document.querySelector('.text-to-speech-area');
+function boxShadowAnimationOn() {   
     textToSpeechArea.classList.add('box-shadow');
 }
-
-// function to turn off box shadow animation
 function boxShadowAnimationOff() {
-    const textToSpeechArea = document.querySelector('.text-to-speech-area');
     textToSpeechArea.classList.remove('box-shadow');
 }
-
 
 // TEXT TO SPEECH function
 const textToSpeech = (text) => {
@@ -71,25 +58,23 @@ const textToSpeech = (text) => {
     window.speechSynthesis.speak(new SpeechSynthesisUtterance(text)); 
 }
 
-let loadInterval;
-function loader() {
-    aiResponse = document.querySelector('.ai-response');
-    aiResponse.innerHTML = "Loading";
+// let loadInterval;
+// function loader() {
+//     aiResponse.innerHTML = "Loading";
 
-    loadInterval = setInterval(() => {
-        aiResponse.innerHTML += ".";
-        if (aiResponse.innerHTML === "Loading....") {
-            aiResponse.innerHTML = "Loading";
-        }
-    }, 500);
-}
+//     loadInterval = setInterval(() => {
+//         aiResponse.innerHTML += ".";
+//         if (aiResponse.innerHTML === "Loading....") {
+//             aiResponse.innerHTML = "Loading";
+//         }
+//     }, 500);
+// }
 
 // Speaker button functionality
 function speakerFunctionality() {
     const speaker = document.querySelector('.speaker');
 
     speaker.addEventListener('click', () => {
-        const aiResponse = document.querySelector('.ai-response'); 
         const text = aiResponse.textContent;
         textToSpeech(text);
 }
@@ -97,7 +82,6 @@ function speakerFunctionality() {
 
 // Typewriter effect function
 async function typeText(text) {
-    const aiResponse = document.querySelector('.ai-response'); 
     aiResponse.innerHTML = "";
     return new Promise((resolve) => {
         let index = 0;
@@ -155,6 +139,7 @@ async function beginInterview() {
     const beginInterviewButton = document.querySelector('.begin-interview');
     const textToSpeechArea = document.querySelector('.text-to-speech');
     
+    // Only add the questions that have been filled out to the interviewQuestions array
     inputs.forEach((input) => {
         if (input.value.trim() !== '') {
             interviewQuestions.push(input.value);
@@ -169,25 +154,26 @@ async function beginInterview() {
     var currentQuestionIndex = 0;
     interviewAnswers = [interviewQuestions.length];
 
+    let finalFeedback = "";
 
-    console.log(interviewQuestions.length);
     while (currentQuestionIndex < interviewQuestions.length) {
         await displayNextQuestion(currentQuestionIndex);
-        let answer = await listenForUserResponse(currentQuestionIndex);
+        let answer = await listenForUserResponse();
+        let currentFeedback = await getAIFeedback(interviewQuestions[currentQuestionIndex], answer);
+        finalFeedback += "\n\nQ" + currentQuestionIndex+1 + ". \n" +currentFeedback;
         console.log(currentQuestionIndex + ": " + answer);
         interviewAnswers[currentQuestionIndex] = answer;
         currentQuestionIndex++;
     }
 
-    await typeText("Thank you for using InterviewMentor. Your answers suck. Please get better.");
-    console.log(interviewAnswers);
+    await typeText("Thank you for using InterviewMentor. Here are your results:\n" + finalFeedback);
 }
 
 
 
 // This function listens for the user's response and auto updates the textarea
 // It returns the user's response as a string
-async function listenForUserResponse(currentQuestionIndex) {
+async function listenForUserResponse() {
     return new Promise((resolve, reject) => {
 
         const speechText = document.querySelector('.text-to-speech-area');
@@ -225,23 +211,9 @@ async function displayNextQuestion(currentQuestionIndex) {
 }
 
 
-
-
 const startUp =  async () => {
-    await typeText("Hello, welcome to InterviewMentor."); // Please enter the questions you would like to practice! \nYou may add up to 5 questions below. When you are ready to begin, click the begin interview button.");
-    // await loader();  
+    await typeText("Hello, welcome to InterviewMentor. Please enter the questions you would like to practice! \nYou may add up to 5 questions below. When you are ready to begin, click the begin interview button.");
 }
 
 startUp();
 validateForm();
-
-/*
-    while(there are still questions){
-        display the first question
-        then
-        listen for the user's response and turn on the box shadow animation
-        user will press the button to submit their response
-    }
-    
-    display the next question
-*/ 
