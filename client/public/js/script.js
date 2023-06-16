@@ -174,7 +174,6 @@ async function getAutoFillQuestions() {
     if(response.ok){
         const data = await response.json();
         const parsedData = data.bot.trim();
-        console.log(parsedData);
         return parsedData;
     } else {
         const err = await response.text();
@@ -193,11 +192,11 @@ async function autofillQuestions() {
         //change the autofill button to say loading...
         autofillButton.innerHTML = "Loading...";
         let autofillQuestions = await getAutoFillQuestions();
-        let array = autofillQuestions.split("?");
+        let arrayOfQuestions = autofillQuestions.split("?");
         autofillButton.innerHTML = "Auto-fill Questions";
 
         inputs.forEach((input) => {
-            input.value = array.shift();
+            input.value = arrayOfQuestions.shift();
         });
 
     });

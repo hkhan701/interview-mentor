@@ -34,7 +34,7 @@ app.post('/', async (req, res) => {
       temperature: 0,
       top_p: 1.0,
       n: 1,
-      frequency_penalty: 0.0,
+      frequency_penalty: 0.5,
       presence_penalty: 0.0,
       stop: ['#', ';'],
     });
