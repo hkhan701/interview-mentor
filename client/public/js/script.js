@@ -120,6 +120,7 @@ async function beginInterview() {
     const inputs = form.querySelectorAll('.questions-area');
     const beginInterviewButton = document.querySelector('.begin-interview');
     const textToSpeechArea = document.querySelector('.text-to-speech');
+    const autofillButton = document.querySelector('.auto-fill');
     
     // Only add the questions that have been filled out to the interviewQuestions array
     inputs.forEach((input) => {
@@ -132,6 +133,7 @@ async function beginInterview() {
     form.classList.add('hide');
     textToSpeechArea.classList.remove('hide');
     beginInterviewButton.classList.add('hide');
+    autofillButton.classList.add('hide');
 
     var currentQuestionIndex = 0;
     interviewAnswers = [interviewQuestions.length];
@@ -157,6 +159,49 @@ async function beginInterview() {
     await typeText("Thank you for using InterviewMentor. Here are your results:\n" + finalFeedback);
 }
 
+// returns 5 random questions from the AI
+async function getAutoFillQuestions() {
+    const response = await fetch('https://interviewmentor.onrender.com', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            prompt: `Generate 5 job interview questions`
+        })
+    })
+
+    if(response.ok){
+        const data = await response.json();
+        const parsedData = data.bot.trim();
+        console.log(parsedData);
+        return parsedData;
+    } else {
+        const err = await response.text();
+        console.log(err);
+        aiResponse.textValue = "Something went wrong";
+    }
+}
+
+// Autofill button functionality
+async function autofillQuestions() {
+
+    const inputs = document.querySelectorAll('.questions-area');
+    const autofillButton = document.querySelector('.auto-fill');
+
+    autofillButton.addEventListener('click', async () => {
+        //change the autofill button to say loading...
+        autofillButton.innerHTML = "Loading...";
+        let autofillQuestions = await getAutoFillQuestions();
+        let array = autofillQuestions.split("?");
+        autofillButton.innerHTML = "Auto-fill Questions";
+
+        inputs.forEach((input) => {
+            input.value = array.shift();
+        });
+
+    });
+}
 
 // This function listens for the user's response and auto updates the textarea
 // It returns the user's response as a string
@@ -199,6 +244,7 @@ async function displayNextQuestion(currentQuestionIndex) {
 
 const startUp =  async () => {
     await typeText("Hello, welcome to InterviewMentor. Please enter the questions you would like to practice! \nYou may add up to 5 questions below. When you are ready to begin, click the begin interview button.");
+    autofillQuestions();
 }
 
 startUp();
