@@ -382,8 +382,23 @@ footer img {
 
 .begin-interview {
     margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
     font-family: var(--font-family-title);
     font-weight: var(--fw-black);
+}
+
+.auto-fill{
+    font-family: var(--font-family-title);
+    font-weight: var(--fw-black);
+    margin-bottom: 0.5rem;
+}
+
+@media screen and (max-width: 545px) {
+    .ai-text {
+        width: 20rem;
+        height: 10rem;
+        margin-bottom: 3rem;
+    }
 }
 
 
