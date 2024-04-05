@@ -6,6 +6,9 @@
   "scripts": {
     "server": "nodemon server"
   },
+  "engines": {
+    "node": ">=18"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
