@@ -88,7 +88,7 @@ function validateForm() {
 // Accepts a question and answer and returns the AI's feedback
 async function getAIFeedback(question, answer) {
 
-    const response = await fetch('https://interviewmentor.onrender.com', {
+    const response = await fetch('http://localhost:5000', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -100,8 +100,8 @@ async function getAIFeedback(question, answer) {
 
     if(response.ok){
         const data = await response.json();
-        const parsedData = data.bot.trim();
-        return parsedData;
+        console.log(data.response);
+        return data.response;
     } else {
         const err = await response.text();
         console.log(err);
@@ -161,20 +161,22 @@ async function beginInterview() {
 
 // returns 5 random questions from the AI
 async function getAutoFillQuestions() {
-    const response = await fetch('https://interviewmentor.onrender.com', {
+    //http://localhost:5000
+    // https://interviewmentor.onrender.com
+    const response = await fetch('http://localhost:5000', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-            prompt: `Generate 5 job interview questions`
+            prompt: `Generate 5 job interview questions. Ensure they are numbered 1 to 5.`
         })
     })
 
     if(response.ok){
         const data = await response.json();
-        const parsedData = data.bot.trim();
-        return parsedData;
+        console.log(data.response);
+        return data.response;
     } else {
         const err = await response.text();
         console.log(err);
@@ -184,7 +186,6 @@ async function getAutoFillQuestions() {
 
 // Autofill button functionality
 async function autofillQuestions() {
-
     const inputs = document.querySelectorAll('.questions-area');
     const autofillButton = document.querySelector('.auto-fill');
 
@@ -192,13 +193,13 @@ async function autofillQuestions() {
         //change the autofill button to say loading...
         autofillButton.innerHTML = "Loading...";
         let autofillQuestions = await getAutoFillQuestions();
-        let arrayOfQuestions = autofillQuestions.split("?");
+        
+        let arrayOfQuestions = autofillQuestions.split(/\d+\.\s+/).slice(1); // Split based on numbers followed by a dot and optional space
         autofillButton.innerHTML = "Auto-fill Questions";
 
-        inputs.forEach((input) => {
-            input.value = arrayOfQuestions.shift();
+        inputs.forEach((input, index) => {
+            input.value = arrayOfQuestions[index];
         });
-
     });
 }
 
