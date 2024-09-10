@@ -87,7 +87,7 @@ function validateForm() {
 
 // Accepts a question and answer and returns the AI's feedback
 async function getAIFeedback(question, answer) {
-    const response = await fetch('https://interviewmentor.onrender.com', {
+    const response = await fetch('https://interview-mentor-backend.vercel.app/', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -160,7 +160,7 @@ async function beginInterview() {
 
 // returns 5 random questions from the AI
 async function getAutoFillQuestions() {
-    const response = await fetch('https://interviewmentor.onrender.com', {
+    const response = await fetch('https://interview-mentor-backend.vercel.app/', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
