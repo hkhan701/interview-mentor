@@ -120,6 +120,7 @@ async function beginInterview() {
     const beginInterviewButton = document.querySelector('.begin-interview');
     const textToSpeechArea = document.querySelector('.text-to-speech');
     const autofillButton = document.querySelector('.auto-fill');
+    const submitBtn = document.querySelector('.sumbit-ans-btn');
     
     // Only add the questions that have been filled out to the interviewQuestions array
     inputs.forEach((input) => {
@@ -142,7 +143,17 @@ async function beginInterview() {
     while (currentQuestionIndex < interviewQuestions.length) {
         await displayNextQuestion(currentQuestionIndex);
         let answer = await listenForUserResponse();
+        
+        // Update button text while getting AI feedback
+        submitBtn.innerHTML = "Submitting, please wait...";
+        submitBtn.disabled = true;
+        
         let currentFeedback = await getAIFeedback(interviewQuestions[currentQuestionIndex], answer);
+        
+        // Reset button text
+        submitBtn.innerHTML = "Submit Answer";
+        submitBtn.disabled = false;
+        
         finalFeedback += "\n\nQ" + (currentQuestionIndex+1) + ". \n" + interviewQuestions[currentQuestionIndex] + "\n\nA" + (currentQuestionIndex+1) + ". \n" + answer + "\n\n"
          +currentFeedback;
         console.log(currentQuestionIndex + ": " + answer);   
@@ -241,8 +252,8 @@ async function displayNextQuestion(currentQuestionIndex) {
 
 const startUp =  async () => {
     await typeText("Hello, welcome to InterviewMentor. Please enter the questions you would like to practice! \nYou may add up to 5 questions below. When you are ready to begin, click the begin interview button.");
-    autofillQuestions();
 }
 
 startUp();
+autofillQuestions();
 validateForm();

@@ -476,11 +476,13 @@ footer img {
     position: absolute;
     bottom: 0.4rem;
     right: 0.7rem;
-    width: 3.4rem;
+    min-width: 3.4rem;
+    width: auto;
     height: 1.7rem;
     font-size: var(--fs-200);
     text-align: center;
-    padding: 0;
+    padding: 0 0.5rem;
+    white-space: nowrap;
 }
 
 .box-shadow {
