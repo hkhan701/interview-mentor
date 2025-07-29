@@ -57,7 +57,7 @@ async function typeText(text) {
             clearInterval(interval);
             setTimeout(resolve, 2000); // Wait 2 seconds before resolving
           }
-    }, 50);
+    }, 15);
     });
 }
 
@@ -177,7 +177,7 @@ async function getAutoFillQuestions() {
             'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-            prompt: `Generate 5 job interview questions. Ensure they are numbered 1 to 5.`
+            prompt: `Give me exactly 5 unique job interview questions, numbered 1 to 5. Do not include any explanations, introductions, or follow-up text. Just the questions.`
         })
     })
 
