@@ -1,43 +1,13 @@
 import express from 'express'
 import * as dotenv from 'dotenv'
 import cors from 'cors'
-import { GoogleGenerativeAI, HarmCategory, HarmBlockThreshold } from '@google/generative-ai';
+import { Groq } from 'groq-sdk';
 
 dotenv.config() 
 
-const MODEL_NAME = "gemini-2.0-flash-lite";
-const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
-
-const safetySettings = [
-  {
-    category: HarmCategory.HARM_CATEGORY_HARASSMENT,
-    threshold: HarmBlockThreshold.BLOCK_NONE,
-  },
-  {
-    category: HarmCategory.HARM_CATEGORY_HATE_SPEECH,
-    threshold: HarmBlockThreshold.BLOCK_NONE,
-  },
-  {
-    category: HarmCategory.HARM_CATEGORY_SEXUALLY_EXPLICIT,
-    threshold: HarmBlockThreshold.BLOCK_NONE,
-  },
-  {
-    category: HarmCategory.HARM_CATEGORY_DANGEROUS_CONTENT,
-    threshold: HarmBlockThreshold.BLOCK_NONE,
-  },
-];
-
-const generationConfig = { 
-  model: MODEL_NAME,
-  maxTokens: 100,
-  temperature: 0.5,
-  topP: 1.0,
-  frequencyPenalty: 0.0,
-  presencePenalty: 0.0,
-  stopSequences: ["\n"],
-};
-
-const model = genAI.getGenerativeModel(generationConfig, safetySettings);
+const groq = new Groq({
+  apiKey: process.env.GROQ_API_KEY,
+});
 
 const app = express()
 app.use(cors())
@@ -51,23 +21,27 @@ app.get('/', async (req, res) => {
 
 app.post('/', async (req, res) => {
   try {
-      const prompt = req.body.prompt;
-      const data = await model.generateContent(prompt);
+    const prompt = req.body.prompt;
+    const chatCompletion = await groq.chat.completions.create({
+      messages: [{ role: "user", content: prompt }],
+      model: "llama-3.3-70b-versatile",
+      temperature: 1,
+      max_completion_tokens: 8192,
+      top_p: 1,
+      stream: true,
+    });
+
+    let fullResponse = '';
+    for await (const chunk of chatCompletion) {
+      fullResponse += chunk.choices[0]?.delta?.content || '';
+    }
+
     res.status(200).send({
-      response: data.response.text()
+      response: fullResponse
     });
   } catch (error) {
-    if (error.response && error.response.promptFeedback && error.response.promptFeedback.blockReason === 'SAFETY') {
-      // Response was blocked due to safety
-      console.error('Response blocked due to safety');
-      res.status(200).send({
-        response: "Blocked due to safety."
-      });
-    } else {
-      // Other errors
-      console.error(error);
-      res.status(500).send('Error: Something went wrong');
-    }
+    console.error(error);
+    res.status(500).send('Error: Something went wrong');
   }
 })
 
